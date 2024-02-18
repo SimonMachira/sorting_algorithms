@@ -1,51 +1,46 @@
 #include "sort.h"
 
 /**
- * swap_ints - Swap two integers in an array.
- * @a: The first integer to swap.
- * @b: The second integer to swap.
+ * swapping - swaps positions
+ * @array: array to be swapped
+ * @one: first index
+ * @two: second index
  */
-
-void swap_ints(int *a, int *b)
+void swapping(int **array, size_t one, size_t two)
 {
-	int tmp;
+	int hold;
 
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
+	hold = (*array)[one];
+	(*array)[one] = (*array)[two];
+	(*array)[two] = hold;
 }
 
 /**
- * bubble_sort - Sort an array of integers in ascending order.
- * @array: An array of integers to sort.
- * @size: The size of the array.
- *
- * Description: Prints the array after each swap.
+ * bubble_sort- sorts an array of integers in ascending order
+ * @array: array to be sorted
+ * @size: array size
  */
-
-/*
-Time Complexity: O(n^2)
-*/
 void bubble_sort(int *array, size_t size)
 {
-	size_t i, len = size;
-	bool bubbly = false;
+	size_t count1, count2, flagging;
 
-	if (array == NULL || size < 2)
-		return;
-
-	while (bubbly == false)
+	if (size < 2)
 	{
-		bubbly = true;
-		for (i = 0; i < len - 1; i++)
+		return;
+	}
+	for (count1 = 0; count1 < size; count1++)
+	{
+		flagging = 0;
+		for (count2 = 0; count2 < size - count1 - 1; count2++)
 		{
-			if (array[i] > array[i + 1])
+			if (array[count2] > array[count2 + 1])
 			{
-				swap_ints(array + i, array + i + 1);
+				swapping(&array, count2, count2 + 1);
 				print_array(array, size);
-				bubbly = false;
+				flagging = 1;
 			}
 		}
-		len--;
+		if (!flagging)
+			break;
 	}
 }
